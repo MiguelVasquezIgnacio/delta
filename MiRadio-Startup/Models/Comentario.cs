@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace MiRadio_Startup.Models
 {
     public class Comentario
@@ -7,16 +10,15 @@ namespace MiRadio_Startup.Models
         [Key]
         public int IdComentario { get; set; }
         public string Texto { get; set; }
-        public int IdUsuario { get; set; }
+        public int Id { get; set; }
         public DateTime FechaPublicacion { get; set; }
 
-        //relaciones
-        public int Usuario { get; set; }
+        // Relaciones
+        public int UsuarioId { get; set; }
+        public int MusicaId { get; set; }
 
-        public int Musica { get; set; }
-
-        public virtual Usuario? UsuarioS { get; set; }
-         
-        public virtual Musica? MusicaS { get; set; }
+        public virtual Usuario UsuarioS { get; set; }
+        public virtual Musica MusicaS { get; set; }
     }
 }
+

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MiRadio_Startup.Models
 {
@@ -13,7 +15,7 @@ namespace MiRadio_Startup.Models
         public string Genero { get; set; }
         public string Descripcion { get; set; }
         public float TamañoMB { get; set; }
-        public List<string> Etiquetas { get; set; }
-        public string CodigoQR { get; set; }
+
+        public List<Etiqueta> Etiquetas { get; set; }
     }
 }
