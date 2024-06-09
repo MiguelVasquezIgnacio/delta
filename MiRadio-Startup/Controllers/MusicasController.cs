@@ -25,23 +25,7 @@ namespace MiRadio_Startup.Controllers
             return View(await _context.Musicas.ToListAsync());
         }
 
-        // GET: Musicas/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var musica = await _context.Musicas
-                .FirstOrDefaultAsync(m => m.IdMusica == id);
-            if (musica == null)
-            {
-                return NotFound();
-            }
-
-            return View(musica);
-        }
+        // GET: Musicas/Create
 
         // GET: Musicas/Create
         public IActionResult Create()
