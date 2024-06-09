@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MiRadio_Startup.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20240531233807_MigracionRadio")]
-    partial class MigracionRadio
+    [Migration("20240609191810_Miradio1")]
+    partial class Miradio1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
 
             modelBuilder.Entity("MiRadio_Startup.Models.Comentario", b =>
                 {
@@ -92,15 +92,13 @@ namespace MiRadio_Startup.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("TamañoMB")
-                        .HasColumnType("REAL");
+                    b.Property<int>("TamanoKB")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Titulo")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UrlMusica")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdMusica");

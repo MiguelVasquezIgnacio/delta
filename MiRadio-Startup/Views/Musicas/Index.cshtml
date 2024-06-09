@@ -7,11 +7,12 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.FechaPublicacion)
             </th>
@@ -28,44 +29,49 @@
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TamañoMB)
+                @Html.DisplayNameFor(model => model.TamanoKB)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UrlMusica)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPublicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Autor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TamañoMB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UrlMusica)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMusica">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMusica">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMusica">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.UrlMusica != null)
+                    {
+                        <video src="~/musicas/@item.UrlMusica" class="video-thumbnail" width="270" height="190" controls>
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaPublicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamanoKB)
+                </td>
+               
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdMusica" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdMusica" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdMusica" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

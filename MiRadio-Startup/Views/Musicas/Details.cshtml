@@ -4,55 +4,73 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Musica</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaPublicacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaPublicacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Autor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TamañoMB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TamañoMB)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UrlMusica)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UrlMusica)
-        </dd>
-    </dl>
+
+    <div class="row">
+        <div class="col-4 col-sm-4">
+            @if (Model.UrlMusica != null)
+            {
+                <video src="~/musicas/@Model.UrlMusica" class="video-thumbnail" width="320" height="240" controls>
+                    Your browser does not support the video tag.
+                </video>
+            }
+            
+    </div>
+        <div class="col-8 col-sm-8">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaPublicacion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaPublicacion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Titulo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Autor)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Autor)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Genero)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Genero)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TamanoKB)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TamanoKB)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UrlMusica)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UrlMusica)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+
+
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.IdMusica">Edit</a> |

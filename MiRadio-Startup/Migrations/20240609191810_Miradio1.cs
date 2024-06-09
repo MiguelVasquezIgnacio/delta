@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MiRadio_Startup.Migrations
 {
     /// <inheritdoc />
-    public partial class MigracionRadio : Migration
+    public partial class Miradio1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,12 +18,12 @@ namespace MiRadio_Startup.Migrations
                     IdMusica = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     FechaPublicacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UrlMusica = table.Column<string>(type: "TEXT", nullable: false),
-                    Titulo = table.Column<string>(type: "TEXT", nullable: false),
+                    Titulo = table.Column<string>(type: "TEXT", nullable: true),
                     Autor = table.Column<string>(type: "TEXT", nullable: false),
                     Genero = table.Column<string>(type: "TEXT", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    TamañoMB = table.Column<float>(type: "REAL", nullable: false)
+                    TamanoKB = table.Column<int>(type: "INTEGER", nullable: false),
+                    UrlMusica = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
