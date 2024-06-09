@@ -10,16 +10,18 @@ namespace MiRadio_Startup.Models
     {
         [Key]//anotacion
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string email { get; set; }
-
-        public string NombreUsuario { get; set; }
-
-        public string password { get; set; }
+        [Required,MinLength(5)]
+        public string? Nombre { get; set; }
+        [Required, MinLength(4)]
+        public string? email { get; set; }
+        [Required, MinLength(3)]
+        public string? NombreUsuario { get; set; }
+        [Required, MinLength(4)]
+        public string? password { get; set; }
 
         public RolEnum Rol { get; set; }
 
         //relaciones 
-        public virtual List<Comentario> Comentarios { get; set; }
+        public virtual List<Comentario>? Comentarios { get; set; }
     }
 }
