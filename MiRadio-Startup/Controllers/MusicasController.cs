@@ -101,7 +101,7 @@ namespace MiRadio_Startup.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMusica,FechaPublicacion,Titulo,Autor,Genero,Descripcion,UrlMusica,TamañoKB")] Musica musica)
+        public async Task<IActionResult> Edit(int id, Musica musica)
         {
             if (id != musica.IdMusica)
             {
