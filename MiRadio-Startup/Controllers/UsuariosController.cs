@@ -54,7 +54,7 @@ namespace MiRadio_Startup.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,email,NombreUsuario,password,Rol")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Email,NombreUsuario,Password,Rol")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {

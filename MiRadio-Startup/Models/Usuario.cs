@@ -13,11 +13,11 @@ namespace MiRadio_Startup.Models
         [Required,MinLength(5)]
         public string? Nombre { get; set; }
         [Required, MinLength(4)]
-        public string? email { get; set; }
+        public string? Email { get; set; }
         [Required, MinLength(3)]
         public string? NombreUsuario { get; set; }
         [Required, MinLength(4)]
-        public string? password { get; set; }
+        public string? Password { get; set; }
 
         public RolEnum Rol { get; set; }
 

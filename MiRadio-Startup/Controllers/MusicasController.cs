@@ -55,14 +55,15 @@ namespace MiRadio_Startup.Controllers
         // POST: Musicas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FechaPublicacion,Titulo,Autor,Genero,Descripcion,MusicaFile")] Musica musica)
+        public async Task<IActionResult> Create([Bind("FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
         {
+            Console.WriteLine(musica.ToString());
             if (ModelState.IsValid)
             {
                 if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
                 {
-                    var tamañoKB = (int)(musica.MusicaFile.Length / 1024.0);
-                    musica.TamanoKB = tamañoKB;
+                    var tamanoKB = (int)(musica.MusicaFile.Length / 1024.0);
+                    musica.TamanoKB = tamanoKB;
 
                     // Guardar archivo de música
                     await GuardarMusica(musica);
@@ -99,7 +100,7 @@ namespace MiRadio_Startup.Controllers
         // POST: Musicas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMusica,FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,UrlMusica,MusicaFile")] Musica musica)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMusica,FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
         {
             if (id != musica.IdMusica)
             {
@@ -163,7 +164,8 @@ namespace MiRadio_Startup.Controllers
             {
                 // Eliminar archivo físico si existe
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                string path = Path.Combine(wwwRootPath, "musicas", musica.UrlMusica);
+                string nombreArchivo = musica.MusicaFilename;
+                string path = Path.Combine(wwwRootPath, "musicas", musica.MusicaFilename);
 
                 if (System.IO.File.Exists(path))
                 {
@@ -192,20 +194,18 @@ namespace MiRadio_Startup.Controllers
                 // Generar nombre único para el archivo
                 string nameMusica = $"{Guid.NewGuid()}{extension}";
 
-                // Actualizar la URL en el objeto de música
-                musica.UrlMusica = nameMusica;
-
                 // Definir la ruta completa del archivo
                 string path = Path.Combine(wwwRootPath, "musicas", nameMusica);
 
                 // Crear directorio si no existe
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
 
+                musica.MusicaFilename = nameMusica;
                 // Guardar el archivo físicamente
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await musica.MusicaFile.CopyToAsync(fileStream);
-                }
+                var fileStream = new FileStream(path, FileMode.Create);
+                
+                await musica.MusicaFile.CopyToAsync(fileStream);
+                
             }
         }
     }

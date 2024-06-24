@@ -63,8 +63,13 @@ namespace MiRadio_Startup.Controllers
         
         public async Task<IActionResult> Create([Bind("Texto,UsuarioId,MusicaId")] Comentario comentario)
         {
+            Console.WriteLine(comentario.Texto);
+            Console.WriteLine(comentario.UsuarioId);
+            Console.WriteLine(comentario.MusicaId);
+            //comentario.IdComentario = 1;
             if (ModelState.IsValid)
             {
+                Console.WriteLine("aqui");
                 // Establecer la fecha de publicación a la fecha y hora actual
                 comentario.FechaPublicacion = DateTime.Now;
 

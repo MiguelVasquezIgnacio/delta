@@ -26,14 +26,10 @@ namespace MiRadio_Startup.Migrations
                     b.Property<DateTime>("FechaPublicacion")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("MusicaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Texto")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UsuarioId")
@@ -58,7 +54,6 @@ namespace MiRadio_Startup.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Valor")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdEtiqueta");
@@ -89,13 +84,13 @@ namespace MiRadio_Startup.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("MusicaFilename")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("TamanoKB")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Titulo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UrlMusica")
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdMusica");
@@ -109,6 +104,10 @@ namespace MiRadio_Startup.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -117,16 +116,12 @@ namespace MiRadio_Startup.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Rol")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

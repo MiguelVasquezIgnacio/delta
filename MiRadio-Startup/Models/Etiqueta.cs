@@ -6,9 +6,9 @@ namespace MiRadio_Startup.Models
     {
         [Key]
         public int IdEtiqueta { get; set; }
-        public string Valor { get; set; }
+        public string? Valor { get; set; }
 
         public int MusicaId { get; set; }
-        public Musica Musica { get; set; }
+        public Musica? Musica { get; set; }
     }
 }

@@ -40,14 +40,6 @@
         {
             <tr>
                 <td>
-                    @if (item.UrlMusica != null)
-                    {
-                        <video src="~/musicas/@item.UrlMusica" class="video-thumbnail" width="270" height="190" controls>
-                            Your browser does not support the video tag.
-                        </video>
-                    }
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.FechaPublicacion)
                 </td>
                 <td>

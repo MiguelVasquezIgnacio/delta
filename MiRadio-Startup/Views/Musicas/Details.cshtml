@@ -12,9 +12,9 @@
 
     <div class="row">
         <div class="col-4 col-sm-4">
-            @if (Model.UrlMusica != null)
+            @if (Model.MusicaFilename != null)
             {
-                <video src="~/musicas/@Model.UrlMusica" class="video-thumbnail" width="320" height="240" controls>
+                <video src="~/musicas/@Model.MusicaFilename" class="video-thumbnail" width="320" height="240" controls>
                     Your browser does not support the video tag.
                 </video>
             }
@@ -57,12 +57,6 @@
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.TamanoKB)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.UrlMusica)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.UrlMusica)
                 </dd>
             </dl>
         </div>

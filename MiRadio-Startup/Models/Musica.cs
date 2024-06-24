@@ -34,12 +34,17 @@ namespace MiRadio_Startup.Models
         [Range(1, 15360, ErrorMessage = "El tamaño debe ser mayor que 0 y menor o igual a 15360 KB (15 MB).")]
         public int TamanoKB { get; set; } // Tamaño en KB
 
-        public string? UrlMusica { get; set; }
+        public string? MusicaFilename { get; set; }
 
         [NotMapped]
         [Display(Name = "Subir música")]
         public IFormFile? MusicaFile { get; set; }
 
         public List<Etiqueta>? Etiquetas { get; set; }
+
+        public override string ToString()
+        {
+            return IdMusica + "\n" + FechaPublicacion + "\n" + Titulo + "\n" + Autor + "\n" + Genero + "\n" + Descripcion + "\n" + TamanoKB; 
+        }
     }
 }

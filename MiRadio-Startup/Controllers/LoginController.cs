@@ -22,8 +22,8 @@ namespace MiRadio_Startup.Controllers
         public async Task<IActionResult> Login(string email, string password)
         {
             var usuario = _context.Usuarios
-                .Where(x => x.email == email)
-                .Where(x => x.password == password)
+                .Where(x => x.Email == email)
+                .Where(x => x.Password == password)
                 .FirstOrDefault();
 
             if (usuario != null)
