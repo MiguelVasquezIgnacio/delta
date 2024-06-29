@@ -9,7 +9,9 @@ namespace MiRadio_Startup.Models
     {
         [Key]
         public int IdComentario { get; set; }
+       
         public string? Texto { get; set; }
+     
         public DateTime FechaPublicacion { get; set; }
 
         // Relaciones

@@ -1,65 +1,89 @@
 ﻿@model MiRadio_Startup.Models.Musica
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Edit</h1>
+<style>
+    .table-blue-border {
+        border: 2px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+    .form-control-blue-border {
+        border: 1px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+        .form-control-blue-border:focus {
+            border-color: #0056b3; /* Color azul más oscuro al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
+        }
+</style>
+
+<h1>Editar</h1>
 
 <h4>Musica</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdMusica" />
-            <div class="form-group">
-                <label asp-for="FechaPublicacion" class="control-label"></label>
-                <input asp-for="FechaPublicacion" class="form-control" />
-                <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Autor" class="control-label"></label>
-                <input asp-for="Autor" class="form-control" />
-                <span asp-validation-for="Autor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <textarea asp-for="Descripcion" class="form-control"></textarea>
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered table-blue-border">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form asp-action="Edit" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="IdMusica" />
+                                <div class="form-group">
+                                    <label asp-for="FechaPublicacion" class="control-label"></label>
+                                    <input asp-for="FechaPublicacion" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Titulo" class="control-label"></label>
+                                    <input asp-for="Titulo" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Autor" class="control-label"></label>
+                                    <input asp-for="Autor" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Autor" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Genero" class="control-label"></label>
+                                    <input asp-for="Genero" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Genero" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Descripcion" class="control-label"></label>
+                                    <textarea asp-for="Descripcion" class="form-control form-control-blue-border"></textarea>
+                                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                </div>
 
-            <div class="form-group">
-                <label asp-for="TamanoKB" class="control-label"></label>
-                <input asp-for="TamanoKB" class="form-control" />
-                <span asp-validation-for="TamanoKB" class="text-danger"></span>
-            </div>
+                                <div class="form-group">
+                                    <label asp-for="TamanoKB" class="control-label"></label>
+                                    <input asp-for="TamanoKB" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="TamanoKB" class="text-danger"></span>
+                                </div>
 
-            <div class="form-group">
-
-                <label asp-for="MusicaFile" class="control-label"></label>
-                <input asp-for="MusicaFile" type="file" class="form-control" />
-                <span asp-validation-for="MusicaFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                                <div class="form-group">
+                                    <label asp-for="MusicaFile" class="control-label"></label>
+                                    <input asp-for="MusicaFile" type="file" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="MusicaFile" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver Atras</a>
 </div>
 
 @section Scripts {

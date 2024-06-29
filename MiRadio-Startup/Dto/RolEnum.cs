@@ -2,7 +2,7 @@
 {
     public enum RolEnum
     {
-        Registrado = 1,
+        Administrador = 1,
         Moderador
     }
 }
