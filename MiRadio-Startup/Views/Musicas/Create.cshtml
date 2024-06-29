@@ -1,7 +1,7 @@
 ﻿@model MiRadio_Startup.Models.Musica
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
 <h1>Crear</h1>
@@ -12,52 +12,49 @@
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="FechaPublicacion" class="control-label"></label>
-                <input asp-for="FechaPublicacion" class="form-control" />
+                <input asp-for="FechaPublicacion" class="form-control bordered-input" />
                 <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
+                <input asp-for="Titulo" class="form-control bordered-input" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Autor" class="control-label"></label>
-                <input asp-for="Autor" class="form-control" />
+                <input asp-for="Autor" class="form-control bordered-input" />
                 <span asp-validation-for="Autor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
+                <input asp-for="Genero" class="form-control bordered-input" />
                 <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
+                <input asp-for="Descripcion" class="form-control bordered-input" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TamanoKB" class="control-label"></label>
-                <input asp-for="TamanoKB" class="form-control" />
+                <input asp-for="TamanoKB" class="form-control bordered-input" />
                 <span asp-validation-for="TamanoKB" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MusicaFile" class="control-label"></label>
-                <input asp-for="MusicaFile" type="file" class="form-control" />
+                <input asp-for="MusicaFile" type="file" class="form-control bordered-input" />
                 <span asp-validation-for="MusicaFile" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-                <button type="button" class="btn btn-success">Custom Button</button>
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver Atrás</a>
             </div>
         </form>
-
     </div>
-
-
 </div>
 
 @section Scripts {
@@ -65,3 +62,27 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<!-- Estilos CSS añadidos para mejorar los bordes -->
+<style>
+    .bordered-input {
+        border: 2px solid #007bff; /* Cambia este color al que prefieras */
+        border-radius: 4px; /* Bordes redondeados */
+        transition: border-color 0.3s ease; /* Suave transición cuando el color del borde cambia */
+    }
+
+        .bordered-input:focus {
+            border-color: #0056b3; /* Color del borde cuando el campo está enfocado */
+            box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Sombra suave cuando está enfocado */
+        }
+
+    /* Cambia los colores si hay errores de validación */
+    .text-danger .bordered-input {
+        border-color: #dc3545; /* Rojo para los errores */
+    }
+
+    /* Cambia los colores si está validado correctamente (puedes necesitar ajustar las clases) */
+    .text-success .bordered-input {
+        border-color: #28a745; /* Verde para validado correctamente */
+    }
+</style>

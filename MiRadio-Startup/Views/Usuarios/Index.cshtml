@@ -9,8 +9,9 @@
 <p>
     <a asp-action="Create" class="btn btn-success">Crear Nuevo Usuario</a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-bordered table-hover table-striped bordered-table">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
@@ -31,24 +32,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rol)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreUsuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol)
+                </td>
+                <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
                         <i class="bi bi-pencil"></i> Editar
                     </a>
@@ -58,9 +60,64 @@
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
                         <i class="bi bi-trash"></i> Eliminar
                     </a>
-
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- Estilos CSS añadidos para mejorar los bordes y colores de la tabla -->
+<style>
+    /* Estilos para la tabla de usuarios */
+    .bordered-table th, .bordered-table td {
+        border: 2px solid #007bff; /* Color de borde primario */
+        border-radius: 4px; /* Bordes redondeados */
+        transition: border-color 0.3s ease; /* Suave transición cuando el color del borde cambia */
+        padding: 8px; /* Espaciado dentro de las celdas */
+    }
+
+    /* Encabezado de la tabla con fondo oscuro */
+    .table-dark th {
+        background-color: #343a40; /* Fondo oscuro para el encabezado */
+        color: #fff; /* Texto blanco */
+    }
+
+    /* Cambia los colores al pasar el mouse por las filas */
+    .bordered-table tbody tr:hover {
+        border-color: #0056b3; /* Color del borde cuando se pasa el ratón */
+        background-color: rgba(0, 91, 187, 0.1); /* Fondo suave cuando se pasa el ratón */
+    }
+
+    /* Estilos para los botones dentro de la tabla */
+    .btn {
+        margin-right: 5px;
+        padding: 5px 10px; /* Añadimos un padding más pequeño para los botones */
+    }
+
+    .btn-warning, .btn-info, .btn-danger {
+        padding: 3px 7px; /* Espaciado interno más pequeño para botones */
+    }
+
+    /* Estilos para diferentes colores de botones */
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #fff;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: #fff;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-warning:hover, .btn-info:hover, .btn-danger:hover {
+            opacity: 0.8; /* Suave cambio de opacidad en hover */
+        }
+</style>

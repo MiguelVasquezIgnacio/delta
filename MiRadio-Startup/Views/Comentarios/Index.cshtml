@@ -1,53 +1,56 @@
 ﻿@model IEnumerable<MiRadio_Startup.Models.Comentario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista Comentarios";
 }
 
-<h1>Index</h1>
+<h1>Comentarios</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
 </p>
-<table class="table">
-    <thead>
+
+<!-- Añadimos clases CSS para bordes -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
         <tr>
-            <th>
+            <th class="border-top border-bottom border-primary">
                 @Html.DisplayNameFor(model => model.Texto)
             </th>
-            <th>
+            <th class="border-top border-bottom border-success">
                 @Html.DisplayNameFor(model => model.FechaPublicacion)
             </th>
-            <th>
+            <th class="border-top border-bottom border-info">
                 @Html.DisplayNameFor(model => model.UsuarioS)
             </th>
-            <th>
+            <th class="border-top border-bottom border-warning">
                 @Html.DisplayNameFor(model => model.MusicaS)
             </th>
-            <th></th>
+            <th class="border-top border-bottom border-danger"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Texto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPublicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioS.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MusicaS.Autor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdComentario">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdComentario">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdComentario">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="border-bottom border-secondary">
+                <td class="border-left border-primary">
+                    @Html.DisplayFor(modelItem => item.Texto)
+                </td>
+                <td class="border-left border-success">
+                    @Html.DisplayFor(modelItem => item.FechaPublicacion)
+                </td>
+                <td class="border-left border-info">
+                    @Html.DisplayFor(modelItem => item.UsuarioS.Nombre)
+                </td>
+                <td class="border-left border-warning">
+                    @Html.DisplayFor(modelItem => item.MusicaS.Autor)
+                </td>
+                <td class="border-left border-danger">
+                    <a asp-action="Edit" asp-route-id="@item.IdComentario" class="btn btn-sm btn-primary">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdComentario" class="btn btn-sm btn-info">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdComentario" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

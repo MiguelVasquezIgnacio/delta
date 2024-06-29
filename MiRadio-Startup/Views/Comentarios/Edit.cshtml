@@ -1,46 +1,85 @@
 ﻿@model MiRadio_Startup.Models.Comentario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Edit</h1>
+<style>
+    .table-blue-border {
+        border: 2px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+    .form-control-blue-border {
+        border: 1px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+        .form-control-blue-border:focus {
+            border-color: #0056b3; /* Color azul más oscuro al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
+        }
+</style>
+
+<h1>Editar Comentario</h1>
 
 <h4>Comentario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdComentario" />
-            <div class="form-group">
-                <label asp-for="Texto" class="control-label"></label>
-                <input asp-for="Texto" class="form-control" />
-                <span asp-validation-for="Texto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaPublicacion" class="control-label"></label>
-                <input asp-for="FechaPublicacion" class="form-control" />
-                <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
-                <span asp-validation-for="UsuarioId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MusicaId" class="control-label"></label>
-                <select asp-for="MusicaId" class="form-control" asp-items="ViewBag.MusicaId"></select>
-                <span asp-validation-for="MusicaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered table-blue-border">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <!-- Campo oculto para IdComentario -->
+                                <input type="hidden" asp-for="IdComentario" />
+
+                                <!-- Campo de texto para el comentario -->
+                                <div class="form-group">
+                                    <label asp-for="Texto" class="control-label"></label>
+                                    <input asp-for="Texto" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Texto" class="text-danger"></span>
+                                </div>
+
+                                <!-- Campo oculto para la fecha de publicación -->
+                                <!-- No permitir la edición directa de FechaPublicacion -->
+                                <input type="hidden" asp-for="FechaPublicacion" />
+
+                                <!-- Dropdown para seleccionar el Usuario -->
+                                <div class="form-group">
+                                    <label asp-for="UsuarioId" class="control-label"></label>
+                                    <select asp-for="UsuarioId" class="form-control form-control-blue-border" asp-items="ViewBag.UsuarioId"></select>
+                                    <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                                </div>
+
+                                <!-- Dropdown para seleccionar la Música -->
+                                <div class="form-group">
+                                    <label asp-for="MusicaId" class="control-label"></label>
+                                    <select asp-for="MusicaId" class="form-control form-control-blue-border" asp-items="ViewBag.MusicaId"></select>
+                                    <span asp-validation-for="MusicaId" class="text-danger"></span>
+                                </div>
+
+                                <!-- Botón de enviar -->
+                                <div class="form-group">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver Atrás</a>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
