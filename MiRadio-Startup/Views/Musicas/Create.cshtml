@@ -4,9 +4,7 @@
     ViewData["Title"] = "Crear";
 }
 
-<h1>Crear</h1>
-
-<h4>Musica</h4>
+<h4>CREAR MUSICA</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -65,6 +63,15 @@
 
 <!-- Estilos CSS añadidos para mejorar los bordes -->
 <style>
+
+    body {
+        background-image: url('/imagenes/imagen3.jpg');  
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: white; 
+    }
+
     .bordered-input {
         border: 2px solid #007bff; /* Cambia este color al que prefieras */
         border-radius: 4px; /* Bordes redondeados */
@@ -78,11 +85,11 @@
 
     /* Cambia los colores si hay errores de validación */
     .text-danger .bordered-input {
-        border-color: #dc3545; /* Rojo para los errores */
+        border-color:red; /* Rojo para los errores */
     }
 
     /* Cambia los colores si está validado correctamente (puedes necesitar ajustar las clases) */
     .text-success .bordered-input {
-        border-color: #28a745; /* Verde para validado correctamente */
+        border-color: forestgreen; /* Verde para validado correctamente */
     }
 </style>
