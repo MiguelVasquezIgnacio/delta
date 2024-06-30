@@ -14,7 +14,16 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos adicionales -->
     <style>
-        body {
+            body
+
+        {
+            background-image: url('imagenes/imagen2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f8f9fa;
+        }
             background-color: #f8f9fa;
         }
 
@@ -26,13 +35,18 @@
         }
 
         .login-form {
+            background-image: url('/imagenes/imagen4.jpg');
+            background-size: cover;
+            background-position: center;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            width: 100%; /* Asegura que el formulario ocupe todo el ancho de su contenedor */
+            width: 100%;
+            max-width: 400px;
+            
         }
 
         .music-list {
@@ -44,6 +58,12 @@
             max-height: 70vh;
             display: flex;
             flex-direction: column;
+            background-image: url('/imagenes/imagen1.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-weight: bold;
+            margin: 70px auto 0 auto;
         }
 
         .video-thumbnail {
@@ -69,12 +89,34 @@
                 background-color: #343a40;
                 color: white;
             }
+
+        .lila-text {
+            color: #8e44ad; /* Color lila */
+        }
+
+        .login-form label {
+            color: white;
+        }
+
+        .login-form .form-control {
+            color: white;
+            background-color: #343a40; /* Para mejor contraste */
+            border: none;
+        }
+
+            .login-form .form-control::placeholder {
+                color: #ffffff;
+            }
+
+       
     </style>
+
 </head>
 <body>
     <div class="container login-container">
         <div class="row w-100">
             <!-- Columna para la lista de música -->
+
             <div class="col-md-8 col-lg-9">
                 <div class="music-list">
                     <h3 class="text-center mb-4">Música Disponible</h3>
@@ -110,11 +152,12 @@
                     </table>
                 </div>
             </div>
+    
 
             <!-- Columna para el formulario de inicio de sesión -->
             <div class="col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
                 <div class="login-form">
-                    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+                    <h2 class="text-center mb-4 lila-text">Iniciar Sesión</h2>
                     <form asp-action="Login" asp-controller="Login" method="post">
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
