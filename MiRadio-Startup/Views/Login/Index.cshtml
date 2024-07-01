@@ -78,6 +78,8 @@
             <div class="col-md-8 col-lg-9">
                 <div class="music-list">
                     <h3 class="text-center mb-4">Música Disponible</h3>
+
+                    <!-- Tabla de música -->
                     <table class="table music-table">
                         <thead>
                             <tr>
@@ -106,6 +108,14 @@
                                     <td>@Html.DisplayFor(modelItem => item.Genero)</td>
                                 </tr>
                             }
+
+                            <!-- Mostrar mensaje si no hay resultados de búsqueda -->
+                            @if (!Model.Any())
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">No se encontraron resultados para la búsqueda.</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -114,7 +124,7 @@
             <!-- Columna para el formulario de inicio de sesión -->
             <div class="col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
                 <div class="login-form">
-                    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+                    <h2 class="text-center mb-4">Iniciar Sesión - Radio</h2>
                     <form asp-action="Login" asp-controller="Login" method="post">
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>

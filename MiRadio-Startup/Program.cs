@@ -3,17 +3,17 @@ using MiRadio_Startup.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Agregar controladores con vistas
 builder.Services.AddControllersWithViews();
 
-// Add connection string
+// Configurar la cadena de conexión y agregar el DbContext
 builder.Services.AddDbContext<MyContext>(options => {
-    options.UseSqlite(builder.Configuration.GetConnectionString("CadenaConexion"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion"));
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuración del pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

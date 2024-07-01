@@ -10,11 +10,18 @@
     <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
 </p>
 
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Buscar por título...">
+        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+    </div>
+</form>
+
 <table class="table table-bordered table-hover table-striped bordered-table">
     <thead class="table-dark">
         <tr>
-            <th>Video</th> <!-- Columna de video -->
-            <th>@Html.DisplayNameFor(model => model.FechaPublicacion)</th> <!-- Columna de fecha de publicación -->
+            <th>Video</th>
+            <th>@Html.DisplayNameFor(model => model.FechaPublicacion)</th>
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Autor)</th>
             <th>@Html.DisplayNameFor(model => model.Genero)</th>
@@ -56,6 +63,20 @@
         }
     </tbody>
 </table>
+
+<<div style="margin-top: 20px; width: 80%">
+    <div id="qrcode"></div>
+    <p style="margin-top: 10px; font-size: 1.2rem; font-weight: bold; color: #343a40;">Puedes compartir la página en tu plataforma favorita</p>
+</div>
+
+<script src="~/js/qrcode.min.js"></script>
+<script>
+    var qrcode = new QRCode("qrcode", {
+        text: "https://localhost:7011/Musicas",
+        width: 150,
+        height: 150
+    });
+</script>
 
 <style>
     /* Estilos para la tabla con bordes y colores */

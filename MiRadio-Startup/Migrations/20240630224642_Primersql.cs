@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MiRadio_Startup.Migrations
 {
     /// <inheritdoc />
-    public partial class CambiosComentario : Migration
+    public partial class Primersql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,14 +15,15 @@ namespace MiRadio_Startup.Migrations
                 name: "Musicas",
                 columns: table => new
                 {
-                    IdMusica = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FechaPublicacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Titulo = table.Column<string>(type: "TEXT", nullable: true),
-                    Autor = table.Column<string>(type: "TEXT", nullable: false),
-                    Genero = table.Column<string>(type: "TEXT", nullable: false),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    TamanoKB = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdMusica = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaPublicacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Autor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TamanoKB = table.Column<int>(type: "int", nullable: false),
+                    MusicaFilename = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,13 +34,13 @@ namespace MiRadio_Startup.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    NombreUsuario = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    Rol = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rol = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,10 +51,10 @@ namespace MiRadio_Startup.Migrations
                 name: "Etiquetas",
                 columns: table => new
                 {
-                    IdEtiqueta = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Valor = table.Column<string>(type: "TEXT", nullable: true),
-                    MusicaId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdEtiqueta = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Valor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MusicaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,12 +71,12 @@ namespace MiRadio_Startup.Migrations
                 name: "Comentarios",
                 columns: table => new
                 {
-                    IdComentario = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Texto = table.Column<string>(type: "TEXT", nullable: true),
-                    FechaPublicacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MusicaId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdComentario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Texto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaPublicacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    MusicaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

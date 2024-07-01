@@ -22,19 +22,34 @@ namespace MiRadio_Startup.Controllers
         }
 
         // GET: Musicas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Musicas.ToListAsync());
+            var musicas = from m in _context.Musicas
+                          select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                musicas = musicas.Where(s => s.Titulo.Contains(searchString));
+            }
+
+            return View(await musicas.ToListAsync());
         }
 
         // GET: Musicas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var musica = await _context.Musicas
                 .FirstOrDefaultAsync(m => m.IdMusica == id);
-            if (musica == null) return NotFound();
+
+            if (musica == null)
+            {
+                return NotFound();
+            }
 
             return View(musica);
         }
@@ -49,8 +64,9 @@ namespace MiRadio_Startup.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
-
+        
         {
+
 
             if (ModelState.IsValid)
 
@@ -86,10 +102,16 @@ namespace MiRadio_Startup.Controllers
         // GET: Musicas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var musica = await _context.Musicas.FindAsync(id);
-            if (musica == null) return NotFound();
+            if (musica == null)
+            {
+                return NotFound();
+            }
 
             return View(musica);
         }
@@ -99,7 +121,10 @@ namespace MiRadio_Startup.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdMusica,FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
         {
-            if (id != musica.IdMusica) return NotFound();
+            if (id != musica.IdMusica)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -135,14 +160,18 @@ namespace MiRadio_Startup.Controllers
         }
 
         // GET: Musicas/Delete/5
-
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            var musica = await _context.Musicas
-                .FirstOrDefaultAsync(m => m.IdMusica == id);
-            if (musica == null) return NotFound();
+            var musica = await _context.Musicas.FirstOrDefaultAsync(m => m.IdMusica == id);
+            if (musica == null)
+            {
+                return NotFound();
+            }
 
             return View(musica);
         }
