@@ -4,48 +4,73 @@
     ViewData["Title"] = "Editar";
 }
 
-<h1>Editar</h1>
+<style>
+    .table-blue-border {
+        border: 2px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+    .form-control-blue-border {
+        border: 1px solid #007bff; /* Color azul de Bootstrap */
+    }
+
+        .form-control-blue-border:focus {
+            border-color: #0056b3; /* Color azul más oscuro al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
+        }
+</style>
+
+<h1>Editar Usuario</h1>
 
 <h4>Usuario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control" />
-                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rol" class="control-label"></label>
-                <select asp-for="Rol" class="form-control">
-                    <option value="">Seleccione..</option>
-                    <option value="1">Administrador </option>
-                    <option value="2">Moderador</option>
-                </select>
-                <span asp-validation-for="Rol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered table-blue-border">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="Nombre" class="control-label"></label>
+                                    <input asp-for="Nombre" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <input asp-for="Email" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="NombreUsuario" class="control-label"></label>
+                                    <input asp-for="NombreUsuario" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password" class="control-label"></label>
+                                    <input asp-for="Password" class="form-control form-control-blue-border" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Rol" class="control-label"></label>
+                                    <select asp-for="Rol" class="form-control form-control-blue-border">
+                                        <option value="">Seleccione..</option>
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Moderador</option>
+                                    </select>
+                                    <span asp-validation-for="Rol" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -53,3 +78,8 @@
     <a asp-action="Index">Volver a la Lista</a>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

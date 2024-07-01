@@ -66,7 +66,7 @@ namespace MiRadio_Startup.Controllers
             Console.WriteLine(comentario.Texto);
             Console.WriteLine(comentario.UsuarioId);
             Console.WriteLine(comentario.MusicaId);
-            //comentario.IdComentario = 1;
+           
             if (ModelState.IsValid)
             {
                 Console.WriteLine("aqui");
@@ -84,11 +84,42 @@ namespace MiRadio_Startup.Controllers
             return View(comentario);
         }
 
+        // GET: Comentarios/Edit/5
+        // GET: Comentarios/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comentario = await _context.Comentarios
+                .Include(c => c.MusicaS)
+                .Include(c => c.UsuarioS)
+                .FirstOrDefaultAsync(c => c.IdComentario == id);
+
+            if (comentario == null)
+            {
+                return NotFound();
+            }
+
+            // Poblar los dropdowns con los valores actuales seleccionados
+            ViewData["MusicaId"] = new SelectList(_context.Musicas, "IdMusica", "Titulo", comentario.MusicaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Nombre", comentario.UsuarioId);
+
+            return View(comentario);
+        }
+
+
         // POST: Comentarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdComentario,Texto,UsuarioId,MusicaId")] Comentario comentario)
         {
+            Console.WriteLine(comentario.Texto);
+            Console.WriteLine(comentario.UsuarioId);
+            Console.WriteLine(comentario.MusicaId);
+           
             if (id != comentario.IdComentario)
             {
                 return NotFound();

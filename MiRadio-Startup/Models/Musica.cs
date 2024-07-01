@@ -9,12 +9,11 @@ namespace MiRadio_Startup.Models
     public class Musica
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Configurar para autogenerar ID
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdMusica { get; set; }
 
         [Required(ErrorMessage = "La fecha de publicación es obligatoria.")]
         public DateTime FechaPublicacion { get; set; }
-
 
         public string? Titulo { get; set; }
 
@@ -44,7 +43,7 @@ namespace MiRadio_Startup.Models
 
         public override string ToString()
         {
-            return IdMusica + "\n" + FechaPublicacion + "\n" + Titulo + "\n" + Autor + "\n" + Genero + "\n" + Descripcion + "\n" + TamanoKB; 
+            return $"{IdMusica}\n{FechaPublicacion}\n{Titulo}\n{Autor}\n{Genero}\n{Descripcion}\n{TamanoKB}";
         }
     }
 }

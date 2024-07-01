@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiRadio_Startup.Context;
@@ -31,17 +30,11 @@ namespace MiRadio_Startup.Controllers
         // GET: Musicas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var musica = await _context.Musicas
                 .FirstOrDefaultAsync(m => m.IdMusica == id);
-            if (musica == null)
-            {
-                return NotFound();
-            }
+            if (musica == null) return NotFound();
 
             return View(musica);
         }
@@ -56,9 +49,12 @@ namespace MiRadio_Startup.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
+
         {
-            Console.WriteLine(musica.ToString());
+
             if (ModelState.IsValid)
+
+
             {
                 if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
                 {
@@ -66,12 +62,18 @@ namespace MiRadio_Startup.Controllers
                     musica.TamanoKB = tamanoKB;
 
                     // Guardar archivo de música
-                    await GuardarMusica(musica);
-
-                    // Guardar datos en la base de datos
-                    _context.Add(musica);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    var fileSaveResult = await GuardarMusicaAsync(musica);
+                    if (!fileSaveResult.Success)
+                    {
+                        ModelState.AddModelError("MusicaFile", fileSaveResult.ErrorMessage);
+                    }
+                    else
+                    {
+                        // Guardar datos en la base de datos
+                        _context.Add(musica);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
                 else
                 {
@@ -84,16 +86,11 @@ namespace MiRadio_Startup.Controllers
         // GET: Musicas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var musica = await _context.Musicas.FindAsync(id);
-            if (musica == null)
-            {
-                return NotFound();
-            }
+            if (musica == null) return NotFound();
+
             return View(musica);
         }
 
@@ -102,10 +99,7 @@ namespace MiRadio_Startup.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdMusica,FechaPublicacion,Titulo,Autor,Genero,Descripcion,TamanoKB,MusicaFile")] Musica musica)
         {
-            if (id != musica.IdMusica)
-            {
-                return NotFound();
-            }
+            if (id != musica.IdMusica) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -113,7 +107,12 @@ namespace MiRadio_Startup.Controllers
                 {
                     if (musica.MusicaFile != null)
                     {
-                        await GuardarMusica(musica);
+                        var fileSaveResult = await GuardarMusicaAsync(musica);
+                        if (!fileSaveResult.Success)
+                        {
+                            ModelState.AddModelError("MusicaFile", fileSaveResult.ErrorMessage);
+                            return View(musica);
+                        }
                     }
 
                     _context.Update(musica);
@@ -139,17 +138,11 @@ namespace MiRadio_Startup.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var musica = await _context.Musicas
                 .FirstOrDefaultAsync(m => m.IdMusica == id);
-            if (musica == null)
-            {
-                return NotFound();
-            }
+            if (musica == null) return NotFound();
 
             return View(musica);
         }
@@ -163,13 +156,11 @@ namespace MiRadio_Startup.Controllers
             if (musica != null)
             {
                 // Eliminar archivo físico si existe
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-                string nombreArchivo = musica.MusicaFilename;
-                string path = Path.Combine(wwwRootPath, "musicas", musica.MusicaFilename);
-
-                if (System.IO.File.Exists(path))
+                var deleteFileResult = EliminarMusicaArchivo(musica.MusicaFilename);
+                if (!deleteFileResult.Success)
                 {
-                    System.IO.File.Delete(path);
+                    // Manejar el error si es necesario
+                    // ModelState.AddModelError("", deleteFileResult.ErrorMessage);
                 }
 
                 _context.Musicas.Remove(musica);
@@ -184,29 +175,68 @@ namespace MiRadio_Startup.Controllers
             return _context.Musicas.Any(e => e.IdMusica == id);
         }
 
-        private async Task GuardarMusica(Musica musica)
+        private async Task<FileOperationResult> GuardarMusicaAsync(Musica musica)
         {
-            if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
+            try
+            {
+                if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
+                {
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    string extension = Path.GetExtension(musica.MusicaFile.FileName);
+
+                    // Generar nombre único para el archivo
+                    string nameMusica = $"{Guid.NewGuid()}{extension}";
+
+                    // Definir la ruta completa del archivo
+                    string path = Path.Combine(wwwRootPath, "musicas", nameMusica);
+
+                    // Crear directorio si no existe
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+                    musica.MusicaFilename = nameMusica;
+
+                    // Guardar el archivo físicamente
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await musica.MusicaFile.CopyToAsync(fileStream);
+                    }
+
+                    return new FileOperationResult { Success = true };
+                }
+                return new FileOperationResult { Success = false, ErrorMessage = "El archivo de música no es válido." };
+            }
+            catch (Exception ex)
+            {
+                // Log the error (ex.Message)
+                return new FileOperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+        }
+
+        private FileOperationResult EliminarMusicaArchivo(string filename)
+        {
+            try
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                string extension = Path.GetExtension(musica.MusicaFile.FileName);
+                string path = Path.Combine(wwwRootPath, "musicas", filename);
 
-                // Generar nombre único para el archivo
-                string nameMusica = $"{Guid.NewGuid()}{extension}";
-
-                // Definir la ruta completa del archivo
-                string path = Path.Combine(wwwRootPath, "musicas", nameMusica);
-
-                // Crear directorio si no existe
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-                musica.MusicaFilename = nameMusica;
-                // Guardar el archivo físicamente
-                var fileStream = new FileStream(path, FileMode.Create);
-                
-                await musica.MusicaFile.CopyToAsync(fileStream);
-                
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                    return new FileOperationResult { Success = true };
+                }
+                return new FileOperationResult { Success = false, ErrorMessage = "El archivo no existe." };
             }
+            catch (Exception ex)
+            {
+                // Log the error (ex.Message)
+                return new FileOperationResult { Success = false, ErrorMessage = ex.Message };
+            }
+        }
+
+        private class FileOperationResult
+        {
+            public bool Success { get; set; }
+            public string ErrorMessage { get; set; }
         }
     }
 }
