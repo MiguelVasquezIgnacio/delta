@@ -2,92 +2,99 @@
 
 @{
     ViewData["Title"] = "Editar";
-
 }
 
-<style>
-    .table-blue-border {
-        border: 2px solid #007bff; /* Color azul de Bootstrap */
-    }
-
-    .form-control-blue-border {
-        border: 1px solid #007bff; /* Color azul de Bootstrap */
-    }
-
-        .form-control-blue-border:focus {
-            border-color: #0056b3; /* Color azul más oscuro al enfocar */
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        .table-blue-border {
+            border: 2px solid #007bff; /* Color azul de Bootstrap */
         }
 
-  
-</style>
- body {
-        background-image: url('imagenes/imagen6.jpg'); /* Reemplaza con la ruta de tu imagen */
-        background-size: cover; /* Ajusta el tamaño para cubrir todo el fondo */
-        background-repeat: no-repeat; /* Evita que se repita la imagen */
-        background-attachment: fixed; /* Fija la imagen de fondo al desplazar */
-    }
-<h1>Editar Comentario</h1>
+        .form-control-blue-border {
+            border: 1px solid #007bff; /* Color azul de Bootstrap */
+        }
 
-<h4>Comentario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <div class="table-responsive">
-            <table class="table table-bordered table-blue-border">
-                <tbody>
-                    <tr>
-                        <td>
-                            <form asp-action="Edit">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            .form-control-blue-border:focus {
+                border-color: #0056b3; /* Color azul más oscuro al enfocar */
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
+            }
 
-                                <!-- Campo oculto para IdComentario -->
-                                <input type="hidden" asp-for="IdComentario" />
+        body {
+            background-image: url('~/imagenes/imagen6.jpg'); /* Reemplaza con la ruta correcta de tu imagen */
+            background-size: cover; /* Ajusta el tamaño para cubrir todo el fondo */
+            background-repeat: no-repeat; /* Evita que se repita la imagen */
+            background-attachment: fixed; /* Fija la imagen de fondo al desplazar */
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Comentario</h1>
 
-                                <!-- Campo de texto para el comentario -->
-                                <div class="form-group">
-                                    <label asp-for="Texto" class="control-label"></label>
-                                    <input asp-for="Texto" class="form-control form-control-blue-border" />
-                                    <span asp-validation-for="Texto" class="text-danger"></span>
-                                </div>
+    <h4>Comentario</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="table-responsive">
+                <table class="table table-bordered table-blue-border">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <form asp-action="Edit">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <!-- Campo oculto para la fecha de publicación -->
-                                <!-- No permitir la edición directa de FechaPublicacion -->
-                                <input type="hidden" asp-for="FechaPublicacion" />
+                                    <!-- Campo oculto para IdComentario -->
+                                    <input type="hidden" asp-for="IdComentario" />
 
-                                <!-- Dropdown para seleccionar el Usuario -->
-                                <div class="form-group">
-                                    <label asp-for="UsuarioId" class="control-label"></label>
-                                    <select asp-for="UsuarioId" class="form-control form-control-blue-border" asp-items="ViewBag.UsuarioId"></select>
-                                    <span asp-validation-for="UsuarioId" class="text-danger"></span>
-                                </div>
+                                    <!-- Campo de texto para el comentario -->
+                                    <div class="form-group">
+                                        <label asp-for="Texto" class="control-label"></label>
+                                        <input asp-for="Texto" class="form-control form-control-blue-border" />
+                                        <span asp-validation-for="Texto" class="text-danger"></span>
+                                    </div>
 
-                                <!-- Dropdown para seleccionar la Música -->
-                                <div class="form-group">
-                                    <label asp-for="MusicaId" class="control-label"></label>
-                                    <select asp-for="MusicaId" class="form-control form-control-blue-border" asp-items="ViewBag.MusicaId"></select>
-                                    <span asp-validation-for="MusicaId" class="text-danger"></span>
-                                </div>
+                                    <!-- Campo oculto para la fecha de publicación -->
+                                    <!-- No permitir la edición directa de FechaPublicacion -->
+                                    <input type="hidden" asp-for="FechaPublicacion" />
 
-                                <!-- Botón de enviar -->
-                                <div class="form-group">
-                                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                    <!-- Dropdown para seleccionar el Usuario -->
+                                    <div class="form-group">
+                                        <label asp-for="UsuarioId" class="control-label"></label>
+                                        <select asp-for="UsuarioId" class="form-control form-control-blue-border" asp-items="ViewBag.UsuarioId"></select>
+                                        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- Dropdown para seleccionar la Música -->
+                                    <div class="form-group">
+                                        <label asp-for="MusicaId" class="control-label"></label>
+                                        <select asp-for="MusicaId" class="form-control form-control-blue-border" asp-items="ViewBag.MusicaId"></select>
+                                        <span asp-validation-for="MusicaId" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- Botón de enviar -->
+                                    <div class="form-group">
+                                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Volver Atrás</a>
-</div>
+    <div>
+        <a asp-action="Index">Volver Atrás</a>
+    </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</body>
+</html>

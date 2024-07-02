@@ -4,129 +4,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Música</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
-</p>
-
-<table class="table table-bordered table-hover table-striped bordered-table">
-    <thead class="table-dark">
-        <tr>
-            <th>Video</th> <!-- Columna de video -->
-            <th>@Html.DisplayNameFor(model => model.FechaPublicacion)</th> <!-- Columna de fecha de publicación -->
-            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
-            <th>@Html.DisplayNameFor(model => model.Autor)</th>
-            <th>@Html.DisplayNameFor(model => model.Genero)</th>
-            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-            <th>@Html.DisplayNameFor(model => model.TamanoKB)</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.MusicaFilename))
-                    {
-                        <video src="~/musicas/@item.MusicaFilename" class="video-thumbnail" width="160" height="120" controls>
-                            Your browser does not support the video tag.
-                        </video>
-                    }
-                    else
-                    {
-                        <span>No disponible</span>
-                    }
-                </td>
-                <td>@Html.DisplayFor(modelItem => item.FechaPublicacion)</td>
-                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
-                <td>@Html.DisplayFor(modelItem => item.Autor)</td>
-                <td>@Html.DisplayFor(modelItem => item.Genero)</td>
-                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                <td>@Html.DisplayFor(modelItem => item.TamanoKB)</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Botones de acción">
-                        <a asp-action="Edit" asp-route-id="@item.IdMusica" class="btn btn-sm btn-warning">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.IdMusica" class="btn btn-sm btn-info">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdMusica" class="btn btn-sm btn-danger">Eliminar</a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<!-- Estilo para la imagen de fondo -->
 <style>
     body {
-        background-image: url('/imagenes/imagen8.jpg'); /* tu imagen */
+        background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-    }
-    /* Estilos para la tabla con bordes y colores */
-    .bordered-table th,
-    .bordered-table td {
-        border: 2px solid #007bff;
-        border-radius: 4px;
-        transition: border-color 0.3s ease;
-        padding: 8px;
+        height: 100%;
     }
 
-    /* Encabezado de la tabla con fondo oscuro */
-    .table-dark th {
-        background-color: #343a40;
-        color: #fff;
-    }
-
-    /* Cambia los colores al pasar el mouse por las filas */
-    .bordered-table tbody tr:hover {
-        border-color: #0056b3;
-        background-color: rgba(0, 91, 187, 0.1);
-    }
-
-    /* Estilos para los botones dentro de la tabla */
-    .btn-group {
-        margin: 0; /* Quita el margen entre los botones */
-    }
-
-    .btn {
-        padding: 5px 10px;
-    }
-
-    .btn-sm {
-        font-size: 0.875rem;
-        padding: 3px 7px;
-    }
-
-    /* Estilos para diferentes colores de botones */
-    .btn-warning {
-        background-color: #ffc107;
-        border-color: #ffc107;
-        color: #fff;
-    }
-
-    .btn-info {
-        background-color: #17a2b8;
-        border-color: #17a2b8;
-        color: #fff;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border-color: #dc3545;
-        color: #fff;
-    }
-
-        .btn-warning:hover,
-        .btn-info:hover,
-        .btn-danger:hover {
-            opacity: 0.8;
-        }
-
-    /* Estilos para el reproductor de video */
-    .video-thumbnail {
-        border: 1px solid #ccc;
-        border-radius: 4px;
+    .container {
+        padding: 20px; /* Ajusta el espaciado interior según sea necesario */
     }
 </style>
+
+<div class="container">
+    <h1>Música</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
+    </p>
+
+    <!-- Formulario de búsqueda -->
+    <form asp-action="Index" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="searchString" placeholder="Buscar..." aria-label="Buscar" value="@ViewData["CurrentFilter"]" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    <table class="table table-bordered table-hover table-striped bordered-table">
+        <thead class="table-dark">
+            <tr>
+                <th>Video</th>
+                <th>@Html.DisplayNameFor(model => model.FechaPublicacion)</th>
+                <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+                <th>@Html.DisplayNameFor(model => model.Autor)</th>
+                <th>@Html.DisplayNameFor(model => model.Genero)</th>
+                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th>@Html.DisplayNameFor(model => model.TamanoKB)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.MusicaFilename))
+                        {
+                            <video src="~/musicas/@item.MusicaFilename" class="video-thumbnail" width="160" height="120" controls>
+                                Your browser does not support the video tag.
+                            </video>
+                        }
+                        else
+                        {
+                            <span>No disponible</span>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaPublicacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Autor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Genero)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TamanoKB)</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Botones de acción">
+                            <a asp-action="Edit" asp-route-id="@item.IdMusica" class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.IdMusica" class="btn btn-sm btn-info">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdMusica" class="btn btn-sm btn-danger">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px; width: 80%">
+        <div id="qrcode"></div>
+        <p style="margin-top: 10px; font-size: 1.2rem; font-weight: bold; color: #343a40;">Puedes compartir la página en tu plataforma favorita</p>
+    </div>
+
+    <script src="~/js/qrcode.min.js"></script>
+    <script>
+        var qrcode = new QRCode("qrcode", {
+            text: "http://sis2420bradio-001-site1.atempurl.com/",
+            width: 150,
+            height: 150
+        });
+    </script>
+</div>
