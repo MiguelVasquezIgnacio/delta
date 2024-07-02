@@ -3,20 +3,19 @@
 @{
     ViewData["Title"] = "Editar";
 }
-
+<!-- Estilo para la imagen de fondo -->
 <style>
-    .table-blue-border {
-        border: 2px solid #007bff; /* Color azul de Bootstrap */
+    body {
+        background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
     }
 
-    .form-control-blue-border {
-        border: 1px solid #007bff; /* Color azul de Bootstrap */
+    .container {
+        padding: 20px; /* Ajusta el espaciado interior según sea necesario */
     }
-
-        .form-control-blue-border:focus {
-            border-color: #0056b3; /* Color azul más oscuro al enfocar */
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Efecto de enfoque de Bootstrap */
-        }
 </style>
 
 <h1>Editar Usuario</h1>
