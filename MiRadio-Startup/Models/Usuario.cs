@@ -23,5 +23,6 @@ namespace MiRadio_Startup.Models
 
         //relaciones 
         public virtual List<Comentario>? Comentarios { get; set; }
+       
     }
 }

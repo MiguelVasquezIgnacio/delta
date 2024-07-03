@@ -10,9 +10,9 @@ namespace MiRadio_Startup.Context
 
         }
 
-        public DbSet<Usuario> Usuarios { get; set; }       // DbSet para la entidad Usuario
-        public DbSet<Musica> Musicas { get; set; }         // DbSet para la entidad Musica
-        public DbSet<Comentario> Comentarios { get; set; } // DbSet para la entidad Comentario      
+        public DbSet<Usuario> Usuarios { get; set; }       
+        public DbSet<Musica> Musicas { get; set; }         
+        public DbSet<Comentario> Comentarios { get; set; }       
     }
 
 

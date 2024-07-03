@@ -26,8 +26,7 @@ namespace MiRadio_Startup.Controllers
         {
             ViewData["CurrentFilter"] = searchString;
 
-            var musicas = from m in _context.Musicas
-                          select m;
+            var musicas = _context.Musicas.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -49,7 +48,7 @@ namespace MiRadio_Startup.Controllers
 
             var musica = await _context.Musicas
                 .Include(m => m.Comentarios) // Incluir los comentarios asociados
-                    .ThenInclude(c => c.UsuarioS) // Incluir información del usuario que hizo el comentario
+                .ThenInclude(c => c.UsuarioS) // Incluir información del usuario que hizo el comentario
                 .FirstOrDefaultAsync(m => m.IdMusica == id);
 
             if (musica == null)
@@ -73,28 +72,35 @@ namespace MiRadio_Startup.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
+                try
                 {
-                    var tamanoKB = (int)(musica.MusicaFile.Length / 1024.0);
-                    musica.TamanoKB = tamanoKB;
-
-                    // Guardar archivo de música
-                    var fileSaveResult = await GuardarMusicaAsync(musica);
-                    if (!fileSaveResult.Success)
+                    if (musica.MusicaFile != null && musica.MusicaFile.Length > 0)
                     {
-                        ModelState.AddModelError("MusicaFile", fileSaveResult.ErrorMessage);
+                        var tamanoKB = (int)(musica.MusicaFile.Length / 1024.0);
+                        musica.TamanoKB = tamanoKB;
+
+                        var fileSaveResult = await GuardarMusicaAsync(musica);
+                        if (!fileSaveResult.Success)
+                        {
+                            ModelState.AddModelError("MusicaFile", fileSaveResult.ErrorMessage);
+                            return View(musica);
+                        }
                     }
                     else
                     {
-                        // Guardar datos en la base de datos
-                        _context.Add(musica);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        ModelState.AddModelError("MusicaFile", "Debe seleccionar un archivo.");
+                        return View(musica);
                     }
+
+                    _context.Add(musica);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                else
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("MusicaFile", "Debe seleccionar un archivo.");
+                    ModelState.AddModelError(string.Empty, "Ocurrió un error al intentar guardar la música.");
+                    // Log the error (ex.Message)
+                    return View(musica);
                 }
             }
             return View(musica);
@@ -108,7 +114,8 @@ namespace MiRadio_Startup.Controllers
                 return NotFound();
             }
 
-            var musica = await _context.Musicas.FindAsync(id);
+            var musica = await _context.Musicas.FirstOrDefaultAsync(m => m.IdMusica == id);
+
             if (musica == null)
             {
                 return NotFound();
@@ -131,6 +138,13 @@ namespace MiRadio_Startup.Controllers
             {
                 try
                 {
+                    var musicaToUpdate = await _context.Musicas.FirstOrDefaultAsync(m => m.IdMusica == id);
+
+                    if (musicaToUpdate == null)
+                    {
+                        return NotFound();
+                    }
+
                     if (musica.MusicaFile != null)
                     {
                         var fileSaveResult = await GuardarMusicaAsync(musica);
@@ -141,22 +155,26 @@ namespace MiRadio_Startup.Controllers
                         }
                     }
 
-                    _context.Update(musica);
+                    musicaToUpdate.FechaPublicacion = musica.FechaPublicacion;
+                    musicaToUpdate.Titulo = musica.Titulo;
+                    musicaToUpdate.Autor = musica.Autor;
+                    musicaToUpdate.Genero = musica.Genero;
+                    musicaToUpdate.Descripcion = musica.Descripcion;
+                    musicaToUpdate.TamanoKB = musica.TamanoKB;
+
+                    _context.Update(musicaToUpdate);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!MusicaExists(musica.IdMusica))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError(string.Empty, "Ocurrió un error al intentar actualizar la música.");
+                    // Log the error (ex.Message)
+                    return View(musica);
                 }
-                return RedirectToAction(nameof(Index));
+
             }
+
             return View(musica);
         }
 
@@ -168,8 +186,8 @@ namespace MiRadio_Startup.Controllers
                 return NotFound();
             }
 
-            var musica = await _context.Musicas
-                .FirstOrDefaultAsync(m => m.IdMusica == id);
+            var musica = await _context.Musicas.FirstOrDefaultAsync(m => m.IdMusica == id);
+
             if (musica == null)
             {
                 return NotFound();
@@ -184,13 +202,14 @@ namespace MiRadio_Startup.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var musica = await _context.Musicas.FindAsync(id);
+
             if (musica != null)
             {
-                // Eliminar archivo físico si existe
                 var deleteFileResult = EliminarMusicaArchivo(musica.MusicaFilename);
+
                 if (!deleteFileResult.Success)
                 {
-                    // Manejar el error si es necesario
+                    // Handle error if needed
                     // ModelState.AddModelError("", deleteFileResult.ErrorMessage);
                 }
 
@@ -201,11 +220,6 @@ namespace MiRadio_Startup.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MusicaExists(int id)
-        {
-            return _context.Musicas.Any(e => e.IdMusica == id);
-        }
-
         private async Task<FileOperationResult> GuardarMusicaAsync(Musica musica)
         {
             try
@@ -214,20 +228,14 @@ namespace MiRadio_Startup.Controllers
                 {
                     string wwwRootPath = _webHostEnvironment.WebRootPath;
                     string extension = Path.GetExtension(musica.MusicaFile.FileName);
-
-                    // Generar nombre único para el archivo
                     string nameMusica = $"{Guid.NewGuid()}{extension}";
-
-                    // Definir la ruta completa del archivo
                     string path = Path.Combine(wwwRootPath, "musicas", nameMusica);
-
-                    // Crear directorio si no existe
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
 
                     musica.MusicaFilename = nameMusica;
 
-                    // Guardar el archivo físicamente
                     using (var fileStream = new FileStream(path, FileMode.Create))
+
                     {
                         await musica.MusicaFile.CopyToAsync(fileStream);
                     }
@@ -267,9 +275,7 @@ namespace MiRadio_Startup.Controllers
         private class FileOperationResult
         {
             public bool Success { get; set; }
-            public string ErrorMessage { get; set; }
+            public string? ErrorMessage { get; set; }
         }
-
     }
-
 }

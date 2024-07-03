@@ -38,9 +38,9 @@ namespace MiRadio_Startup.Models
 
         // Propiedad de navegación para los comentarios
         public virtual List<Comentario>? Comentarios { get; set; }
+       
 
-        
-        
+
 
         public override string ToString()
         {
