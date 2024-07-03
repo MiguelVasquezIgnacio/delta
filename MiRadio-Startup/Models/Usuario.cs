@@ -8,7 +8,7 @@ namespace MiRadio_Startup.Models
 
     public class Usuario
     {
-        [Key]//anotacion
+        [Key]
         public int Id { get; set; }
         [Required,MinLength(5)]
         public string? Nombre { get; set; }

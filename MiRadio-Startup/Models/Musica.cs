@@ -34,6 +34,7 @@ namespace MiRadio_Startup.Models
         public string? MusicaFilename { get; set; }
 
         [NotMapped]
+        
         public IFormFile? MusicaFile { get; set; }
 
         // Propiedad de navegación para los comentarios
