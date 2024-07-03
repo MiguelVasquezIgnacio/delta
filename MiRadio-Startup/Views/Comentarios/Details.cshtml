@@ -2,54 +2,75 @@
 
 @{
     ViewData["Title"] = "Detalles";
+    Layout = null; // No se utilizará ningún layout para esta página
 }
 
-<style>
-    body {
-        background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100%;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos adicionales -->
+    <style>
+        body {
+            background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Ajusta la altura del fondo al 100% del viewport */
+            padding: 20px; /* Ajusta el espaciado interior según sea necesario */
+        }
 
-    .container {
-        padding: 20px; /* Ajusta el espaciado interior según sea necesario */
-    }
-</style>
-<h1>Detalles</h1>
+        .container {
+            padding: 20px; /* Ajusta el espaciado interior según sea necesario */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles</h1>
 
-<div>
-    <h4>Comentario</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Texto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Texto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaPublicacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaPublicacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioS)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioS.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MusicaS)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MusicaS.Autor)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdComentario">Editar</a> |
-    <a asp-action="Index">Volver Atras</a>
-</div>
+        <div>
+            <h4>Comentario</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Texto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Texto)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FechaPublicacion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaPublicacion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UsuarioS)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UsuarioS.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MusicaS)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MusicaS.Autor)
+                </dd>
+            </dl>
+        </div>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.IdComentario" class="btn btn-primary">Editar</a>
+            <a asp-action="Index" class="btn btn-secondary">Volver Atrás</a>
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

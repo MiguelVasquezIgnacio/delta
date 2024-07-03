@@ -18,7 +18,7 @@ namespace MiRadio_Startup.Models
         public string? NombreUsuario { get; set; }
         [Required, MinLength(4)]
         public string? Password { get; set; }
-
+        
         public RolEnum Rol { get; set; }
 
         //relaciones 

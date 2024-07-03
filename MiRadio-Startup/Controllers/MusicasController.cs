@@ -269,5 +269,7 @@ namespace MiRadio_Startup.Controllers
             public bool Success { get; set; }
             public string ErrorMessage { get; set; }
         }
+
     }
+
 }

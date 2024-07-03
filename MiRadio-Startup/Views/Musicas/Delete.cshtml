@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Eliminar";
 }
+
+<!-- Estilo para la imagen de fondo y el diseño de la página -->
 <style>
     body {
         background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
@@ -10,60 +12,84 @@
         background-position: center;
         background-repeat: no-repeat;
         height: 100%;
+        margin: 0;
+        color: white; /* Asegura que el texto principal sea blanco para el fondo oscuro */
     }
 
     .container {
-        padding: 20px; /* Ajusta el espaciado interior según sea necesario */
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 50px;
+        max-width: 600px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        color: white; /* Asegura que el texto dentro del contenedor sea blanco */
+    }
+
+    h1, h3, h4 {
+        text-align: center;
+        color: #ff6666; /* Color rojo para los encabezados */
+    }
+
+    .form-group, .btn {
+        margin-top: 20px;
+    }
+
+    .btn-danger {
+        margin-right: 10px;
     }
 </style>
-<h1>Eliminar</h1>
 
-<h3>Estas seguro de que quieres eliminar?</h3>
-<div>
-    <h4>Musica</h4>
+<!-- Contenedor principal para el contenido de eliminación -->
+<div class="container">
+    <h1>Eliminar Música</h1>
+    <h3>¿Estás seguro de que quieres eliminar?</h3>
+    <h4>Detalles de la Música</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.FechaPublicacion)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.FechaPublicacion)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Autor)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Autor)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Genero)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Genero)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.TamanoKB)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.TamanoKB)
         </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdMusica" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-primary">Volver Atras</a>
+        <div class="text-center">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-primary">Volver Atrás</a>
+        </div>
     </form>
 </div>

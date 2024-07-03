@@ -4,92 +4,105 @@
     ViewData["Title"] = "Crear";
 }
 
-<h4>CREAR MUSICA</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<!-- Estilo para la imagen de fondo -->
+<style>
+    body {
+        background-image: url('/imagenes/imagen3.jpg'); /* Ruta a tu imagen de fondo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100%;
+        margin: 0;
+        color: black; /* Cambiar el color del texto principal a negro */
+    }
 
-            <div class="form-group">
-                <label asp-for="FechaPublicacion" class="control-label"></label>
-                <input asp-for="FechaPublicacion" class="form-control bordered-input" />
-                <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control bordered-input" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Autor" class="control-label"></label>
-                <input asp-for="Autor" class="form-control bordered-input" />
-                <span asp-validation-for="Autor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control bordered-input" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control bordered-input" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TamanoKB" class="control-label"></label>
-                <input asp-for="TamanoKB" class="form-control bordered-input" />
-                <span asp-validation-for="TamanoKB" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MusicaFile" class="control-label"></label>
-                <input asp-for="MusicaFile" type="file" class="form-control bordered-input" />
-                <span asp-validation-for="MusicaFile" class="text-danger"></span>
-            </div>
+    .container {
+        background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+        max-width: 600px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        color: black; /* Asegura que el texto dentro del contenedor también sea negro */
+    }
 
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver Atrás</a>
-            </div>
-        </form>
+    h1, h4 {
+        text-align: center;
+        color: #333; /* Cambia el color de los encabezados a un tono oscuro */
+    }
+
+    .bordered-input {
+        border: 2px solid #007bff; /* Borde azul */
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+    }
+
+        .bordered-input:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+        }
+
+    .form-group .text-danger {
+        color: red; /* Rojo para los errores */
+    }
+</style>
+
+<!-- Contenedor principal para el formulario -->
+<div class="container">
+    <h1>Crear Nueva Música</h1>
+
+    <h4>Detalles de la Música</h4>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="FechaPublicacion" class="control-label"></label>
+                    <input asp-for="FechaPublicacion" class="form-control bordered-input" />
+                    <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Titulo" class="control-label"></label>
+                    <input asp-for="Titulo" class="form-control bordered-input" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Autor" class="control-label"></label>
+                    <input asp-for="Autor" class="form-control bordered-input" />
+                    <span asp-validation-for="Autor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Genero" class="control-label"></label>
+                    <input asp-for="Genero" class="form-control bordered-input" />
+                    <span asp-validation-for="Genero" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descripcion" class="control-label"></label>
+                    <input asp-for="Descripcion" class="form-control bordered-input" />
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TamanoKB" class="control-label"></label>
+                    <input asp-for="TamanoKB" class="form-control bordered-input" />
+                    <span asp-validation-for="TamanoKB" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MusicaFile" class="control-label"></label>
+                    <input asp-for="MusicaFile" type="file" class="form-control bordered-input" />
+                    <span asp-validation-for="MusicaFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Volver Atrás</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
-
-<!-- Estilos CSS añadidos para mejorar los bordes -->
-<style>
-
-    body {
-        background-image: url('/imagenes/imagen3.jpg');  
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        color: white; 
-    }
-
-    .bordered-input {
-        border: 2px solid #007bff; /* Cambia este color al que prefieras */
-        border-radius: 4px; /* Bordes redondeados */
-        transition: border-color 0.3s ease; /* Suave transición cuando el color del borde cambia */
-    }
-
-        .bordered-input:focus {
-            border-color: #0056b3; /* Color del borde cuando el campo está enfocado */
-            box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Sombra suave cuando está enfocado */
-        }
-
-    /* Cambia los colores si hay errores de validación */
-    .text-danger .bordered-input {
-        border-color:red; /* Rojo para los errores */
-    }
-
-    /* Cambia los colores si está validado correctamente (puedes necesitar ajustar las clases) */
-    .text-success .bordered-input {
-        border-color: forestgreen; /* Verde para validado correctamente */
-    }
-</style>

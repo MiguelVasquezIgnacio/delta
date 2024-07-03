@@ -14,18 +14,17 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos adicionales -->
     <style>
-            body
-
-        {
+        body {
             background-image: url('imagenes/imagen2.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: #f8f9fa;
+            color: white;
         }
-            background-color: #f8f9fa;
-        }
+
+
 
         .login-container {
             display: flex;
@@ -35,33 +34,28 @@
         }
 
         .login-form {
-            background-image: url('/imagenes/imagen4.jpg');
+            background-image: url('imagenes/imagen4.jpg');
             background-size: cover;
             background-position: center;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
             width: 100%;
             max-width: 400px;
-            
         }
 
         .music-list {
+            background-image: url('imagenes/imagen1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             max-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            background-image: url('/imagenes/imagen1.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             font-weight: bold;
             margin: 70px auto 0 auto;
         }
@@ -81,7 +75,8 @@
             table-layout: fixed; /* Para que las columnas tengan ancho fijo */
         }
 
-            .music-table th, .music-table td {
+            .music-table th,
+            .music-table td {
                 text-align: center;
             }
 
@@ -94,10 +89,7 @@
             color: #8e44ad; /* Color lila */
         }
 
-        .login-form label {
-            color: white;
-        }
-
+        .login-form label,
         .login-form .form-control {
             color: white;
             background-color: #343a40; /* Para mejor contraste */
@@ -108,7 +100,7 @@
                 color: #ffffff;
             }
 
-       
+
     </style>
 
 </head>
@@ -152,12 +144,11 @@
                     </table>
                 </div>
             </div>
-    
 
             <!-- Columna para el formulario de inicio de sesión -->
             <div class="col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
                 <div class="login-form">
-                    <h2 class="text-center mb-4 lila-text">Iniciar Sesión</h2>
+                    <h2 class="text-center mb-4 lila-text">Iniciar Sesión Radio</h2>
                     <form asp-action="Login" asp-controller="Login" method="post">
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
@@ -178,6 +169,7 @@
             </div>
         </div>
     </div>
+
     <!-- Enlace a jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

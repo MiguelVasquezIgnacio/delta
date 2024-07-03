@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<!-- Estilo para la imagen de fondo -->
+<!-- Estilo para el fondo de la página -->
 <style>
     body {
         background-image: url('/imagenes/imagen8.jpg'); /* Ruta a tu imagen de fondo */
@@ -12,18 +12,33 @@
         background-position: center;
         background-repeat: no-repeat;
         height: 100%;
+        color: white; /* Texto en color blanco para mejor contraste */
     }
 
     .container {
         padding: 20px; /* Ajusta el espaciado interior según sea necesario */
+    }
+
+    .video-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .form-inline .btn {
+        margin-left: 5px;
+    }
+
+    .bordered-table {
+        border: 2px solid #007bff; /* Borde azul */
     }
 </style>
 
 <div class="container">
     <h1>Música</h1>
 
+    <!-- Botón para crear nuevo registro -->
     <p>
-        <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
     </p>
 
     <!-- Formulario de búsqueda -->
@@ -32,6 +47,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
 
+    <!-- Tabla de música -->
     <table class="table table-bordered table-hover table-striped bordered-table">
         <thead class="table-dark">
             <tr>
@@ -52,7 +68,7 @@
                     <td>
                         @if (!string.IsNullOrEmpty(item.MusicaFilename))
                         {
-                            <video src="~/musicas/@item.MusicaFilename" class="video-thumbnail" width="160" height="120" controls>
+                            <video src="~/musicas/@item.MusicaFilename" class="video-thumbnail" controls>
                                 Your browser does not support the video tag.
                             </video>
                         }
@@ -68,7 +84,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
                     <td>@Html.DisplayFor(modelItem => item.TamanoKB)</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Botones de acción">
+                        <div class="btn-group" role="group" aria-label="Acciones">
                             <a asp-action="Edit" asp-route-id="@item.IdMusica" class="btn btn-sm btn-warning">Editar</a>
                             <a asp-action="Details" asp-route-id="@item.IdMusica" class="btn btn-sm btn-info">Detalles</a>
                             <a asp-action="Delete" asp-route-id="@item.IdMusica" class="btn btn-sm btn-danger">Eliminar</a>
@@ -79,15 +95,17 @@
         </tbody>
     </table>
 
+    <!-- QR Code para compartir la página -->
     <div style="margin-top: 20px; width: 80%">
         <div id="qrcode"></div>
         <p style="margin-top: 10px; font-size: 1.2rem; font-weight: bold; color: #343a40;">Puedes compartir la página en tu plataforma favorita</p>
     </div>
 
+    <!-- Script para generar el QR Code -->
     <script src="~/js/qrcode.min.js"></script>
     <script>
         var qrcode = new QRCode("qrcode", {
-            text: "http://sis2420bradio-001-site1.atempurl.com/",
+            text: "http://sis2420bradio-001-site1.atempurl.com/", // URL para compartir
             width: 150,
             height: 150
         });

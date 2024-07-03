@@ -1,5 +1,4 @@
-﻿// Models/Musica.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -40,8 +39,8 @@ namespace MiRadio_Startup.Models
         // Propiedad de navegación para los comentarios
         public virtual List<Comentario>? Comentarios { get; set; }
 
-        // Relación con Etiquetas
-        public virtual List<Etiqueta>? Etiquetas { get; set; }
+        
+        
 
         public override string ToString()
         {

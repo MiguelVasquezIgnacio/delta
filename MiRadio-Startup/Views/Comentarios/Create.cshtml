@@ -4,45 +4,40 @@
     ViewData["Title"] = "Crear";
 }
 
-<h1>Crear</h1>
+<h1>Crear Comentario</h1>
 
-<h4>Comentario</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <!-- Campo para el texto del comentario -->
             <div class="form-group">
-                <label asp-for="Texto" class="control-label"></label>
+                <label asp-for="Texto" class="control-label">Texto del Comentario</label>
                 <input asp-for="Texto" class="form-control" />
                 <span asp-validation-for="Texto" class="text-danger"></span>
             </div>
 
             <!-- Selección del usuario -->
             <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
+                <label asp-for="UsuarioId" class="control-label">Usuario</label>
                 <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
                 <span asp-validation-for="UsuarioId" class="text-danger"></span>
             </div>
 
             <!-- Selección de la música -->
             <div class="form-group">
-                <label asp-for="MusicaId" class="control-label"></label>
+                <label asp-for="MusicaId" class="control-label">Música</label>
                 <select asp-for="MusicaId" class="form-control" asp-items="ViewBag.MusicaId"></select>
                 <span asp-validation-for="MusicaId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">Crear Comentario</button>
+                <a asp-action="Index" class="btn btn-secondary">Volver atrás</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Volver atras</a>
 </div>
 
 @section Scripts {
